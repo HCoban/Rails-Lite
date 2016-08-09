@@ -27,6 +27,7 @@ class ControllerBase
     end
     @res["Location"] = url
     @res.status = 302
+    session.store_session(@res)
     @already_built_response = true
   end
 
@@ -40,6 +41,7 @@ class ControllerBase
     @res["Content-Type"] = content_type
     @res.body = [content]
     @res.finish
+    session.store_session(@res)
     @already_built_response = true
   end
 
@@ -55,6 +57,7 @@ class ControllerBase
 
   # method exposing a `Session` object
   def session
+    @session ||= Session.new(@req)
   end
 
   # use this with the router to call action_name (:index, :show, :create...)
