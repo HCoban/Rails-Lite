@@ -19,9 +19,10 @@ class Route
   def run(req, res)
     route_params = {}
     match_data = @pattern.match(req.path)
-    match_data.names.each_with_index do |key, value|
-      route_params[key] = value
+    match_data.names.each do |key|
+      route_params[key] = match_data[key]
     end
+    # byebug
     @controller_class.new(req, res, route_params).invoke_action(@action_name)
   end
 end
