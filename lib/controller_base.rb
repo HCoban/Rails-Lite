@@ -13,7 +13,7 @@ class ControllerBase
   def initialize(req, res, params)
     @req = req
     @res = res
-    @params = params
+    @params = req.params.merge(params)
   end
 
   # Helper method to alias @already_built_response
